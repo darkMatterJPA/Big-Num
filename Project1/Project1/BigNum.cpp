@@ -126,6 +126,57 @@ public:
 		return result;
 	}
 
+	BigNum operator-(const BigNum& opd2) const
+	{
+		BigNum result;
+		int carry = 0;
+		node* temp1;
+		node* temp2;
+		temp1 = head;
+		temp2 = opd2.head;
+		int tempResult;
+
+
+		//adds opd1 and opd2 
+		while ((temp1 != nullptr) && (temp2 != nullptr))
+		{
+			//tempResult = ((temp1->data - temp2->data) + carry);
+			carry = (tempResult / 10);
+			tempResult = (tempResult % 10);
+			result.addLast(tempResult);
+			temp1 = temp1->next;
+			temp2 = temp2->next;
+		}
+
+		//appends the rest of opd1 to the end of the result
+		while (temp1 != nullptr)
+		{
+			tempResult = temp1->data + carry;
+			carry = (tempResult / 10);
+			tempResult = (tempResult % 10);
+			result.addLast(tempResult);
+			temp1 = temp1->next;
+
+		}
+
+		//appends the rest of opd2 to the end of the result
+		while (temp2 != nullptr)
+		{
+			tempResult = temp2->data + carry;
+			carry = (tempResult / 10);
+			tempResult = (tempResult % 10);
+			result.addLast(tempResult);
+			temp2 = temp2->next;
+		}
+
+		//appends the carry to the end
+		if (carry > 0)
+		{
+			result.addLast(carry);
+		}
+		return result;
+	}
+
 
 	// MULTIPLY
 	BigNum operator*(const BigNum& opd2) const
